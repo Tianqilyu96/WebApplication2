@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication4.Models;
 
 namespace WebApplication4
 {
@@ -24,6 +25,8 @@ namespace WebApplication4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddScoped<IRecipesService, RecipesService>();
+            //provide an instance of the RecipeService class, any time an instance of the interface IRecipeService is requested, Dependency Injection
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

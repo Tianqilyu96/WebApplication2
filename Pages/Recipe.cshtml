@@ -1,8 +1,7 @@
 ﻿@page "{id}"
 <!--Handel Url with id-->
 @{  var id = long.Parse((string)RouteData.Values["id"]);//get id route data from route value
-    var recipesService = new RecipesService();
-    var recipe = await recipesService.FindAsync(id);
+    var recipe = await RecipesService.FindAsync(id);
     ViewData["Title"] = recipe.Name;//allow data sharing between it and layout
     }
 
