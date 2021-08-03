@@ -1,0 +1,8 @@
+﻿@page "{id?}"
+<!--Hadel url with/without "id" route value-->
+@model WebApplication4.Pages.Admin.AddRecipeModel
+@{
+    ViewData["Title"] = Model.IsNew ? "New Recipe" : "Edit Recipe";
+}
+
+<strong>ID: @Model.Id</strong>
