@@ -1,43 +1,9 @@
 ﻿@page "{id}"
 @using WebApplication4.Models
-@{ var id = long.Parse((string)RouteData.Values["id"]);
+@{  Layout = "_Layout";
+    var id = long.Parse((string)RouteData.Values["id"]);//get id route data from route value
     var recipesService = new RecipesService();
     var recipe = await recipesService.FindAsync(id); }
-<!DOCTYPE html>
- <!--add /id to url-->
-<html>
-<head>
-    <title>Topsy Turvy Cake Design</title>
-    <link rel="stylesheet" href="~/site.css" />
-</head>
-<body>
-
-    <header class="container site-header">
-        <div class="row">
-            <h1 class="main-logo"><a href="/">Topsy Turvy Cake Design</a></h1>
-        </div>
-        <div class="row">
-            <nav class="navbar">
-                <ul class="nav nav-pills">
-                    <li><a href="/About">About</a></li>
-                    <li><a href="/Blog">Blog</a></li>
-                    <li><a class="active" href="/">Recipes</a></li>
-                    <li><a href="/Portfolio">Portfolio</a></li>
-                    <li><a href="/Contact">Contact</a></li>
-                </ul>
-                <ul class="nav nav-pills">
-                    <li>
-                        <a href="/Account/Login">Login</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="row">
-            <h2 class="title">@recipe.Name</h2>
-        </div>
-    </header>
-
-    <div class="container">
 
         <div class="row recipe">
 
@@ -57,8 +23,7 @@
                     <ul>
                         @foreach (var ingredient in recipe.IngredientsList)
                         {
-            <li>@ingredient</li>
-}
+            <li>@ingredient</li>}
                     </ul>
                 </div>
 
@@ -67,8 +32,7 @@
                     <ol>
                         @foreach (var step in recipe.DirectionsList)
                         {
-            <li>@step</li>
-}
+            <li>@step</li>}
                     </ol>
                 </div>
 
@@ -79,13 +43,3 @@
             </div>
 
         </div>
-
-    </div>
-
-    <footer>
-        <div class="text-center">
-            <span class="text-muted">Last Rendered:  </span>
-        </div>
-    </footer>
-</body>
-</html>
