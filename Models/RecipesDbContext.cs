@@ -9,7 +9,7 @@ namespace WebApplication4.Models
         public RecipesDbContext(DbContextOptions<RecipesDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            this.EnsureSeedData();
         }
     }
 }
