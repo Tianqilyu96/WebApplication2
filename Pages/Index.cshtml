@@ -7,6 +7,11 @@
     var recipesService = new RecipesService();
     var recipes = await recipesService.GetAllAsync(); }
 
+@section Title {
+    <h2 class="title">My Favorite Recipes</h2>
+    <a asp-page="/Admin/AddRecipe" class="add-recipe btn btn-primary">Add Recipe</a>
+}
+
 
 <div class="row recipes">
 

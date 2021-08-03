@@ -36,7 +36,15 @@
             </nav>
         </div>
         <div class="row">
-            <h2 class="title">My Favorite Recipes</h2>
+            @if (IsSectionDefined("Title"))
+            {
+                RenderSection("Title");//if section is defined render that section
+            }
+            else
+            {
+                <h2 class="title">@ViewData["Title"]</h2>//set default value, use Viewdata in recipe page
+            }
+            
         </div>
     </header>
 
