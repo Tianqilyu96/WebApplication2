@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Models;
@@ -23,7 +24,8 @@ namespace WebApplication4.Pages.Admin
         // When it finds a match, it will assign the value from the request to that property automatically.
         // Then by the time the OnPost method is called, these properties will have been populated and ready to use.
 
-
+        [BindProperty]
+        public IFormFile Image { get; set; }
 
         public AddRecipeModel(IRecipesService recipesService)
         {
@@ -55,9 +57,24 @@ namespace WebApplication4.Pages.Admin
         public async Task<IActionResult> OnPostAsync()
         {
 
-            Recipe.Id = Id.GetValueOrDefault();
-            await recipesService.SaveAsync(Recipe);
-            return RedirectToPage("/Recipe", new { id = Recipe.Id }); //redirect to recipe page with route data "id"
+            var recipe = await recipesService.FindAsync(Id.GetValueOrDefault()) ?? new Recipe();
+            recipe.Name = Recipe.Name;
+            recipe.Ingredients = Recipe.Ingredients;
+            recipe.Description = Recipe.Description;
+            recipe.Directions = Recipe.Directions;
+
+            if(Image != null)
+            {
+                using (var stream = new System.IO.MemoryStream())
+                {
+                    await Image.CopyToAsync(stream);
+                    recipe.Image = stream.ToArray();
+                    recipe.ImageContentType = Image.ContentType;
+                }
+            }
+
+            await recipesService.SaveAsync(recipe);
+            return RedirectToPage("/Recipe", new { id = recipe.Id }); //redirect to recipe page with route data "id"
         }
 
         public async Task<IActionResult> OnPostDelete()
