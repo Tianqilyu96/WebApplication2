@@ -59,5 +59,11 @@ namespace WebApplication4.Pages.Admin
             await recipesService.SaveAsync(Recipe);
             return RedirectToPage("/Recipe", new { id = Recipe.Id }); //redirect to recipe page with route data "id"
         }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            await recipesService.DeleteAsync(Id.Value);
+            return RedirectToPage("/Index");
+        }
     }
 }
