@@ -16,7 +16,14 @@ namespace WebApplication4.Pages.Admin
 
         public bool IsNew { get { return Id == null; } }
 
+        [BindProperty] //Model binding
         public Recipe Recipe { get; set; }
+        // With this property in place, Razor Pages will iterate over each of the properties of the object
+        // and attempt to match the name of each property with the name of a value in the request.
+        // When it finds a match, it will assign the value from the request to that property automatically.
+        // Then by the time the OnPost method is called, these properties will have been populated and ready to use.
+
+
 
         public AddRecipeModel(IRecipesService recipesService)
         {
@@ -47,7 +54,10 @@ namespace WebApplication4.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/Recipe", new { id = Id }); //redirect to recipe page with route data "id"
+
+            Recipe.Id = Id.GetValueOrDefault();
+            await recipesService.SaveAsync(Recipe);
+            return RedirectToPage("/Recipe", new { id = Recipe.Id }); //redirect to recipe page with route data "id"
         }
     }
 }
