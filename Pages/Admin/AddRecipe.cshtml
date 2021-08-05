@@ -4,12 +4,16 @@
 @{
     ViewData["Title"] = Model.IsNew ? "New Recipe" : "Edit Recipe";
 }
-
+@if (!ModelState.IsValid)
+{
+    <div asp-validation-summary="All"></div>
+}
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Recipe.Name" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="Recipe.Name" class="form-control" />
+            <span asp-validation-for="Recipe.Name"></span>
         </div>
     </div>
     <div class="form-group">

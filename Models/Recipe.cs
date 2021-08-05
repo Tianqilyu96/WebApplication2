@@ -6,10 +6,20 @@ namespace WebApplication4.Models
 {
     public class Recipe
     {
+        
         public long Id { get; set; }
+
+        [Required]
+        [StringLength(30,MinimumLength =5,ErrorMessage ="Please enter 5-30 words.")]
         public string Name { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
         public string Directions { get; set; }
+
+        [Required]
         public string Ingredients { get; set; }
 
         public IEnumerable<string> DirectionsList

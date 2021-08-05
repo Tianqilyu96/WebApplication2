@@ -56,7 +56,10 @@ namespace WebApplication4.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             var recipe = await recipesService.FindAsync(Id.GetValueOrDefault()) ?? new Recipe();
             recipe.Name = Recipe.Name;
             recipe.Ingredients = Recipe.Ingredients;
